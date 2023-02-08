@@ -1,0 +1,20 @@
+{
+	"name": "Excel1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "services_total_sa_nace2.xlsx",
+				"container": "input"
+			},
+			"sheetIndex": 3
+		},
+		"schema": []
+	}
+}

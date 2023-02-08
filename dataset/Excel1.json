@@ -13,7 +13,9 @@
 				"fileName": "services_total_sa_nace2.xlsx",
 				"container": "input"
 			},
-			"sheetIndex": 3
+			"sheetIndex": 3,
+			"range": "A222:CK457",
+			"nullValue": "0"
 		},
 		"schema": []
 	}

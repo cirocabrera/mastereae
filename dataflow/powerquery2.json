@@ -1,0 +1,20 @@
+{
+	"name": "powerquery2",
+	"properties": {
+		"type": "WranglingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"name": "Excel2",
+					"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~>  Excel2",
+					"dataset": {
+						"referenceName": "Excel2",
+						"type": "DatasetReference"
+					}
+				}
+			],
+			"script": "section Section1;\r\nshared Excel2 = let AdfDoc = AzureStorage.BlobContents(\"https://storageeae.blob.core.windows.net/input/retail_total_sa_nace2.xlsx\"), Excel = Excel.Workbook(AdfDoc),ExcelSheet = Excel{[Item=\"RETAIL TRADE MONTHLY\",Kind=\"Sheet\"]}[Data] in ExcelSheet;\r\nshared UserQuery = let Source = #\"Excel2\",\r\n  #\"Removed top rows\" = Table.Skip(Source, 221),\r\n  #\"Choose columns\" = Table.SelectColumns(#\"Removed top rows\", {\"Column1\",\"Column86\", \"Column88\", \"Column89\"}) in #\"Choose columns\";\r\n",
+			"documentLocale": "en-us"
+		}
+	}
+}

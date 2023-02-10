@@ -7,7 +7,8 @@
 		},
 		"parameters": {
 			".ES.": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": ".ES."
 			}
 		},
 		"annotations": [],

@@ -13,7 +13,7 @@
 					}
 				}
 			],
-			"script": "section Section1;\r\nshared Excel2 = let AdfDoc = AzureStorage.BlobContents(\"https://storageeae.blob.core.windows.net/input/retail_total_sa_nace2.xlsx\"), Excel = Excel.Workbook(AdfDoc),ExcelSheet = Excel{[Item=\"RETAIL TRADE MONTHLY\",Kind=\"Sheet\"]}[Data] in ExcelSheet;\r\nshared UserQuery = let Source = #\"Excel2\",\r\n  #\"Removed top rows\" = Table.Skip(Source, 221),\r\n  #\"Choose columns\" = Table.SelectColumns(#\"Removed top rows\", {\"Column1\",\"Column86\", \"Column88\", \"Column89\"}) in #\"Choose columns\";\r\nshared Query = let\r\n  Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t])\r\nin\r\n  Source;\r\n",
+			"script": "section Section1;\r\nshared Excel2 = let AdfDoc = AzureStorage.BlobContents(\"https://storageeae.blob.core.windows.net/input/retail_total_sa_nace2.xlsx\"), Excel = Excel.Workbook(AdfDoc),ExcelSheet = Excel{[Item=\"RETAIL TRADE MONTHLY\",Kind=\"Sheet\"]}[Data] in ExcelSheet;\r\nshared UserQuery = let Source = #\"Excel2\",\r\n  #\"Removed top rows\" = Table.Skip(Source, 221),\r\n  #\"Choose columns\" = Table.SelectColumns(#\"Removed top rows\", {\"Column1\",\"Column86\", \"Column88\", \"Column89\"}),\r\n  #\"Inserted year\" = Table.AddColumn(#\"Choose columns\", \"Year\", each Date.Year([Column1]), type nullable number),\r\n  #\"Inserted month\" = Table.AddColumn(#\"Inserted year\", \"Month\", each Date.Month([Column1]), type nullable number) in #\"Inserted month\";\r\n",
 			"documentLocale": "en-us"
 		}
 	}

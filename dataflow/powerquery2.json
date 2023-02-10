@@ -13,7 +13,7 @@
 					}
 				}
 			],
-			"script": "section Section1;\r\nshared Excel2 = let AdfDoc = AzureStorage.BlobContents(\"https://storageeae.blob.core.windows.net/input/retail_total_sa_nace2.xlsx\"), Excel = Excel.Workbook(AdfDoc),ExcelSheet = Excel{[Item=\"RETAIL TRADE MONTHLY\",Kind=\"Sheet\"]}[Data] in ExcelSheet;\r\nshared UserQuery = let Source = #\"Excel2\",\r\n  #\"Removed top rows\" = Table.Skip(Source, 221),\r\n  #\"Removed blank rows\" = Table.SelectRows(#\"Removed top rows\", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {\"\", null}))),\r\n  #\"Choose columns\" = Table.SelectColumns(#\"Removed blank rows\", {\"Column1\",\"Column86\", \"Column88\", \"Column89\"}) in #\"Choose columns\";\r\n",
+			"script": "section Section1;\r\nshared Excel2 = let AdfDoc = AzureStorage.BlobContents(\"https://storageeae.blob.core.windows.net/input/retail_total_sa_nace2.xlsx\"), Excel = Excel.Workbook(AdfDoc),ExcelSheet = Excel{[Item=\"RETAIL TRADE MONTHLY\",Kind=\"Sheet\"]}[Data] in ExcelSheet;\r\nshared UserQuery = let Source = #\"Excel2\",\r\n  #\"Removed top rows\" = Table.Skip(Source, 221),\r\n  #\"Choose columns\" = Table.SelectColumns(#\"Removed top rows\", {\"Column1\",\"Column86\", \"Column88\", \"Column89\"}) in #\"Choose columns\";\r\n",
 			"documentLocale": "en-us"
 		}
 	}
